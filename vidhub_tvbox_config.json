@@ -1,0 +1,83 @@
+{
+  "sites": [
+    {
+      "key": "vidhub",
+      "name": "VidHub视频库",
+      "type": 1,
+      "api": "https://vidhub2.top/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "ext": {
+        "flags": ["vidhub", "电影", "连续剧", "综艺", "动漫"],
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Referer": "https://vidhub2.top/",
+          "Accept-Language": "zh-CN,zh;q=0.9",
+          "Accept-Encoding": "identity"
+        }
+      }
+    }
+  ],
+  "parses": [
+    {
+      "name": "VidHub解析",
+      "type": 0,
+      "url": "",
+      "ext": {
+        "flag": ["vidhub"],
+        "header": {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Referer": "https://vidhub2.top/",
+          "Accept-Encoding": "identity"
+        }
+      }
+    },
+    {
+      "name": "通用解析1",
+      "type": 1,
+      "url": "https://jx.xmflv.com/?url=",
+      "ext": {
+        "flag": ["vidhub", "youku", "qq", "iqiyi", "bilibili"]
+      }
+    },
+    {
+      "name": "通用解析2",
+      "type": 1,
+      "url": "https://jx.quankan.app/?url=",
+      "ext": {
+        "flag": ["vidhub", "youku", "qq", "iqiyi", "bilibili"]
+      }
+    }
+  ],
+  "rules": [
+    {
+      "name": "VidHub规则",
+      "hosts": ["vidhub2.top"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://vidhub2.top/",
+        "Accept-Encoding": "identity"
+      },
+      "regex": [
+        "<a href=\"([^\"]+)\" title=\"([^\"]+)\".*?><img.*?src=\"([^\"]+)\">",
+        "https?://[^\\s]+\\.(m3u8|mp4|flv|ts)"
+      ],
+      "xpath": [
+        "//div[@class='module-item']/a/@href",
+        "//div[@class='module-item']/a/@title",
+        "//div[@class='module-item']//img/@src",
+        "//video/@src"
+      ]
+    }
+  ],
+  "lives": [
+    {
+      "name": "直播源",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
+      "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}"
+    }
+  ],
+  "wallpaper": "https://picsum.photos/1920/1080?random=vidhub"
+}
